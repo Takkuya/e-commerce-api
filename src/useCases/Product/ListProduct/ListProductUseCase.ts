@@ -8,6 +8,10 @@ class ListProductUseCase {
       }
     })
 
+    if (products.length === 0 || !products) {
+      throw new Error('No products found')
+    }
+
     return products
   }
 }

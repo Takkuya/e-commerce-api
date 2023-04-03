@@ -1,9 +1,14 @@
 import { Request, Response } from 'express'
+import { z } from 'zod'
 import { QueryProductUseCase } from './QueryProductUseCase'
 
 class QueryProductController {
   async handle(req: Request, res: Response) {
-    const { name } = req.query
+    const queryProductSchema = z.object({
+      name: z.string().min(1)
+    })
+
+    const { name } = queryProductSchema.parse(req.query)
 
     if (!name) {
       return res.status(404).json({ message: 'Product not found' })

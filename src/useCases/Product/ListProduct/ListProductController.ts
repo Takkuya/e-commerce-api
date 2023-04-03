@@ -1,4 +1,5 @@
 import { Request, Response } from 'express'
+import { z } from 'zod'
 import { ListProductUseCase } from './ListProductUseCase'
 
 class ListProductController {
@@ -12,7 +13,7 @@ class ListProductController {
     const listProductUseCase = new ListProductUseCase()
 
     try {
-      const products = await listProductUseCase.execute(sellerId)
+      const products = await listProductUseCase.execute(sellerId as string)
 
       return res.status(200).json(products)
     } catch (err) {
